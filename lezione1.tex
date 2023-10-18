@@ -1,0 +1,78 @@
+\documentclass{beamer}
+\usepackage[italian]{babel}
+\usetheme{Madrid}
+
+\title{Introduzione alle CTF}
+\subtitle{Lezione 1}
+\author{Alessandro Righi \and Cristiano Di Bari}
+\institute{Università degli Studi di Verona}
+\date{3 Novembre 2023}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduzione}
+
+\begin{frame}{Cosa sono le CTF?}
+
+Le \textit{Capture The Flag} (CTF) sono delle sfide in cui i partecipanti 
+devono trovare delle \textit{flag}, ossia delle stringhe di testo, all'interno
+di sistemi informatici contenenti delle vulnerabilità di sicurezza. 
+\end{frame}
+
+\begin{frame}{Tipologie di CTF}
+Esistono due tipologie di CTF:
+\begin{itemize}
+    \item \textit{jeopardy}: il partecipante attacca una serie di servizi malevoli e sottomette le flag ad un sistema di verifica
+    \item \textit{Attack-Defence (AD)}: competizione a squadre dove ogni team deve attaccare i sistemi dell'avversario, e difendere i propri
+\end{itemize}
+
+Per queste lezioni di concentreremo sul primo tipo, di gran lunga le più diffuse, che è anche
+quello che organizza \textit{Wurth}.
+\end{frame}
+
+\begin{frame}{Tipologie di challenge}
+Tipicamente le challenge che si affrontano possono essere di 4 macro categorie:
+\begin{itemize}
+    \item \textit{Binary} è necessario ricercare vulnerabilità in un eseguibile, quali ad es. buffer overflow
+    \item \textit{Web} si tratta di trovare vulnerabilità in una web app, web API, o comunque applicativo esposto in rete
+    \item \textit{Crypto} è necessario decodificare un testo cifrato con un algoritmo (ovviamente vulnerabile)
+    \item \textit{Misc} sono challenge che non rientrano in nessuno dei tipi precedenti, e richiedono spesso creatività per essere affrontate
+\end{itemize}
+
+Per queste lezioni ci concentreremo sulla categoria \textit{Web}.
+\end{frame}
+
+\section{Path traversal}
+\begin{frame}{}
+\end{frame}
+
+\subsection{Tool: Burp suite}
+
+\begin{frame}{}
+\end{frame}
+
+\section{SQL Injection}
+\begin{frame}{}
+\end{frame}
+
+\subsection{Tool: sqlmap}
+\begin{frame}{}
+\end{frame}
+
+
+\section{Cross site scripting}
+\begin{frame}{}
+\end{frame}
+
+\subsection{Tool: ngrok}
+\begin{frame}{}
+\end{frame}
+
+\end{document}
