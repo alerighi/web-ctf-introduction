@@ -157,25 +157,61 @@ Cosa consente di fare questa vulnerabilità?
 \end{alertblock}
 
 \end{frame}
-\subsection{Challenge: }
-\begin{frame}{Challenge}
+\subsection{Challenges}
+\begin{frame}{Challenges}
 Vediamo la prima challenge. Per queste lezioni utilizzeremo delle challenge 
 prese dalla piattaforma di allenamento delle Olimpiadi di Cybersecurity (\url{https://olicyber.it}), 
 a cui vi invitiamo ad iscrivevi.
 \end{frame}
 
 \begin{frame}{Traverse me}
+    % https://training.olicyber.it/challenges#challenge-504
+    Ho trovato questa galleria di quadri, chissà se ce ne sono di nascosti.
+    \pause
+    \begin{itemize}
+        \item In questa applicazione vengono caricati dei file salvati sul server, sai individuare dove?
+        \pause
+        \item Forse è possibile modificare il nome del file per visualizzare altri elementi presenti sul filesystem.
+        \pause
+    \end{itemize}
+    \begin{exampleblock}{Domanda}
+        É possibile stampare altri file?
+    \end{exampleblock}
 \end{frame}
 
 \begin{frame}{Traverse me more}
+    % https://training.olicyber.it/challenges#challenge-507
+    Questa volta ho fixato il problema della galleria d'arte, non riuscirai mai a carpire il mio segreto.
+    \pause
+    \begin{itemize}
+        \item Provando ad applicare la soluzione per la challenge precedente ci accorgiamo che non funziona!
+        \pause
+        \item Guardando il codice sorgente, notiamo che viene fatto un \textit{sanitize} del nome del file che rimuove alcuni caratteri.
+        \pause
+        \item Possiamo bypassare questo controllo?
+        \pause
+    \end{itemize}
 \end{frame}
 
-% 1. Traverse me
-% 2. Traverse me more
-% 3. Light or dark (extra)
+\begin{frame}{Light or dark}
+    % https://training.olicyber.it/challenges#challenge-49
+    \begin{itemize}
+        \item La challenge mostra un sito web in cui è possibile selezionare il tema, come viene applicato lo stile alla pagina html?
+        \pause
+        \item Scaricando il file sorgente php notiamo che lo sviluppatore ha applicato dei filtri per evitare che un utente malintenzionato possa caricare un file diverso dai fogli css.
+        \pause
+        \item Il secondo controllo verifica che l'estensione del file da caricare sia \texttt{.css}, in caso contrario aggiunge l'estensione richiesta tramite una concatenazione di stringhe. Questo controllo sembra difficile da aggirare...o forse no.
+        \pause
+    \end{itemize}
 
-\subsection{Tool: Burp suite}
-\begin{frame}Flags shop{}
+    \begin{alertblock}{Suggerimento}
+        Avete mai sentito parlare di ``Null Byte Injection''?
+    \end{alertblock}
+\end{frame}
+
+
+% \subsection{Tool: Burp suite}
+\begin{frame}{Flags shop}
 % https://training.olicyber.it/challenges#challenge-43
 \end{frame}
 
@@ -190,26 +226,32 @@ a cui vi invitiamo ad iscrivevi.
 \end{frame}
 
 \begin{frame}{Admin's secret}
-
 % https://training.olicyber.it/challenges#challenge-44
 \end{frame}
 
-
-\begin{frame}{}
-\end{frame}
-
 \begin{frame}{Password changer 3000}
-    http://password-changer.challs.olicyber.it
+    % http://password-changer.challs.olicyber.it
+    Riesci a cambiare la password dell'utente "admin"?
+    \begin{itemize}
+        \item Un sito per cambiare le password degli utenti...non sembra molto utile.
+        \pause
+        \item Provando a cambiare la password dell'utente ``pippo'' otteniamo in risposta una nuova password. Proviamo ad analizzare la richiesta HTTP che abbiamo appena effettuato. 
+        \pause
+        \item Dovremmo riuscire ad impersonare l'utente ``admin'', forse la codifica \texttt{Base64} può esserci d'aiuto.
+        \pause
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Tool: curl}
 \end{frame}
 \begin{frame}{A TOO small reminder...}
-    https://training.olicyber.it/challenges#challenge-36
+    % https://training.olicyber.it/challenges#challenge-36
 \end{frame}
 
-\begin{frame}
-https://training.olicyber.it/challenges#challenge-53
+\begin{frame}{ZioFrank}
+    % https://training.olicyber.it/challenges#challenge-53
 \end{frame}
 
-\subsection{XSS}
+% \subsection{XSS}
+
+\end{document}
