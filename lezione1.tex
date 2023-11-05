@@ -125,15 +125,16 @@ Per queste lezioni ci concentreremo sulla categoria \textit{Web}.
 
 Immaginiamo di avere una pagina web che per caricare l'immagine del profilo di un utente effettua una richiesta a:
 
-\begin{block}{Richiesta}
+\begin{exampleblock}{Richiesta}
 \texttt{https://mysecureapp.com/assets?name=image.jpeg}
-\end{block}
+\end{exampleblock}
 
 \pause
+\vfill
 Cosa succede se modifico la richiesta in questo modo?
 
 \begin{exampleblock}{Richiesta alterata}
-\texttt{https://mysecureapp.com/assets?name=../image.jpeg}
+\texttt{https://mysecureapp.com/assets?name=../index.php}
 \end{exampleblock}
     
 \pause
@@ -143,7 +144,7 @@ Se il server non effettua adeguati controlli, è possibile leggere file fuori da
 \end{frame}
 \begin{frame}{Path traversal}
 Cosa consente di fare questa vulnerabilità?
-
+\vfill
 \pause
 \begin{itemize}
     \item leggere \textit{segreti} altrimenti non accessibili, ad es. file di configurazione quali \texttt{/etc/passwd}
@@ -154,9 +155,10 @@ Cosa consente di fare questa vulnerabilità?
     \pause
 \end{itemize}
 
-\begin{alertblock}{Suggerimento}
+\vfill
+\begin{block}{Suggerimento}
 È possibile aggiungere tanti \texttt{../} fino a raggiungere la directory \textit{root}, ad esempio \texttt{../../../../../etc/passwd}
-\end{alertblock}
+\end{block}
 
 \end{frame}
 \subsection{Challenges}
@@ -211,9 +213,9 @@ a cui vi invitiamo ad iscrivevi.
         \pause
     \end{itemize}
 
-    \begin{alertblock}{Suggerimento}
+    \begin{block}{Suggerimento}
         Avete mai sentito parlare di ``Null Byte Injection''?
-    \end{alertblock}
+    \end{block}
 \end{frame}
 
 
