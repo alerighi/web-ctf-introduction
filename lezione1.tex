@@ -1,6 +1,8 @@
 \documentclass[12pt]{beamer}
 \usepackage{tikz}
 \usepackage[italian]{babel}
+\usepackage{minted}
+
 \usetheme{Madrid}
 \usecolortheme{orchid}
 
@@ -13,7 +15,7 @@
 \subtitle{Lezione 1}
 \author{Alessandro Righi \and Cristiano Di Bari}
 \institute{Università degli Studi di Verona}
-\date{3 Novembre 2023}
+\date{9 Novembre 2023}
 
 \begin{document}
 \begin{frame}
@@ -165,8 +167,10 @@ a cui vi invitiamo ad iscrivevi.
 \end{frame}
 
 \begin{frame}{Traverse me}
-    % https://training.olicyber.it/challenges#challenge-504
+    \url{https://training.olicyber.it/challenges\#challenge-504}
+    \vfill
     Ho trovato questa galleria di quadri, chissà se ce ne sono di nascosti.
+    \vfill
     \pause
     \begin{itemize}
         \item In questa applicazione vengono caricati dei file salvati sul server, sai individuare dove?
@@ -174,14 +178,17 @@ a cui vi invitiamo ad iscrivevi.
         \item Forse è possibile modificare il nome del file per visualizzare altri elementi presenti sul filesystem.
         \pause
     \end{itemize}
+    \vfill
     \begin{exampleblock}{Domanda}
         É possibile stampare altri file?
     \end{exampleblock}
 \end{frame}
 
 \begin{frame}{Traverse me more}
-    % https://training.olicyber.it/challenges#challenge-507
+    \url{https://training.olicyber.it/challenges\#challenge-507}
+    \vfill
     Questa volta ho fixato il problema della galleria d'arte, non riuscirai mai a carpire il mio segreto.
+    \vfill
     \pause
     \begin{itemize}
         \item Provando ad applicare la soluzione per la challenge precedente ci accorgiamo che non funziona!
@@ -194,7 +201,7 @@ a cui vi invitiamo ad iscrivevi.
 \end{frame}
 
 \begin{frame}{Light or dark}
-    % https://training.olicyber.it/challenges#challenge-49
+    \url{https://training.olicyber.it/challenges\#challenge-49}
     \begin{itemize}
         \item La challenge mostra un sito web in cui è possibile selezionare il tema, come viene applicato lo stile alla pagina html?
         \pause
@@ -211,26 +218,114 @@ a cui vi invitiamo ad iscrivevi.
 
 
 % \subsection{Tool: Burp suite}
+\begin{frame}{Burp Suite}
+    Introduciamo un tool che ci sarà utile per le prossime challenge. 
+    \vfill
+\begin{itemize}
+    \item Il tool \textit{Burp Suite} (scaricabile in versione community gratuitamente) agisce 
+        come proxy HTTP
+    \item Agendo da proxy blocca le richieste HTTP fra il browser ed il server, e consente di ispezionarle, eventualmetne modificarle e quindi farne il forward al server.
+    \item Include anche una serie di utilità, ad esempio la possibilità di decodificare valori in vari formati, ad esempio base64.
+\end{itemize}
+    \vfill
+    Vediamone una demo!
+\end{frame}
+
 \begin{frame}{Flags shop}
-% https://training.olicyber.it/challenges#challenge-43
+    % https://training.olicyber.it/challenges#challenge-43
+    \begin{itemize}
+        \item La challenge mostra un sito web dal quale è possibile acquistare dei prodotti
+        \pause
+        \item Forse guardare le richieste che effettua l'applicazione web aiuta?
+        \pause
+        \item Il parametro prezzo sembra un po' sospetto... 
+    \end{itemize}
+
+    \begin{exampleblock}{Domanda}
+        Quale tool visto prima potrebbe agevolarci nello svolgimento di questa challenge?
+    \end{exampleblock}
 \end{frame}
 
 %%% SQLI 
 
 \section{SQL Injection}
-\begin{frame}{}
+\begin{frame}[fragile]{SQL Injection}
+\begin{minted}{PHP}
+<?php
+$user = mysql_query("SELECT * FROM users WHERE 
+    username = '$username' AND password = '$password');
+if (!$user) {
+    echo "utente non trovato!";
+} else {
+    echo "Accesso eseguito!";
+}
+\end{minted}
+\vfill
+\begin{exampleblock}{Domanda}
+    Il codice in questa slide è sicuro?
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{SQL Injection}
+    \includegraphics[width=\textwidth]{img/sqli.png}
+    \url{https://xkcd.com/327/}
+\end{frame}
+    
+\begin{frame}[fragile]{SQL Injection}
+Vediamo cosa accade andando a settare la variabile username al valore \texttt{"admin'--"}:
+\vfill
+\begin{minted}{SQL}
+SELECT * FROM users WHERE 
+username = 'admin'--' AND password = 'boh'
+\end{minted}
+\pause
+\vfill
+Il controllo della password è completamente stato eluso!
+\vfill
+\begin{alertblock}{Prevenzione}
+Mai compore query SQL interpolando stringhe!
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}{SQL Injection}
+\begin{itemize}
+\item le SQL injection rientrano nella più ampia categoria delle \textit{code injection}
+\item le SQL injetion sono \textit{purtroppo} ancora una delle vulnerabilità più diffuse
+\item in questo caso, si trattava di una \textit{blind} SQL injection, in quanto il risultato non è direttamente riflesso all'utente
+\item usa sempre i \textit{prepared statement} messi a disposizione della libreria che usi per interrogare il database per effettuare query!
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Basic SQLi}
-% https://training.olicyber.it/challenges#challenge-48
+\url{https://training.olicyber.it/challenges\#challenge-48}
+\vfill
+\begin{itemize}
+    \item il titolo dice tutto!
+    \pause
+    \item ricorda la slide precedente... 
+    \pause
+    \item SQL supporta altri caratteri per aggiungere commenti
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Admin's secret}
-% https://training.olicyber.it/challenges#challenge-44
+\url{https://training.olicyber.it/challenges\#challenge-44}
+\vfill
+\begin{itemize}
+    \item analizza attentamente il codice sorgente
+    \pause
+    \item nel login vengono usati i prepared statement, forse il problema è nella registrazione
+    \pause
+    \item riesci a creare un utente di tipo admin?
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Password changer 3000}
-    % http://password-changer.challs.olicyber.it
+    \url{https://training.olicyber.it/challenges\#challenge-59}
+    \vfill
     Riesci a cambiare la password dell'utente "admin"?
     \begin{itemize}
         \item Un sito per cambiare le password degli utenti...non sembra molto utile.
@@ -242,16 +337,105 @@ a cui vi invitiamo ad iscrivevi.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Tool: curl}
+\begin{frame}{Curl}
+\begin{itemize}
+    \item per le prossime challenge, sarà necessario effettuare richieste HTTP a servizi REST. 
+    \item esistono svariati tool per farlo, quali \textit{Insomnia}, \textit{Postman}, etc.
+    \item vediamo brevemente il tool da riga di comando \textit{curl}
+    \item molto probabilmente lo hai già installato sul tuo sistema
+\end{itemize}
+\vfill
+\begin{alertblock}{Per gli utenti Windows}
+Utilizza il comando \texttt{curl.exe} in quanto \texttt{curl} usa opzioni diverse.
+\end{alertblock}
 \end{frame}
+
+\begin{frame}{Curl}
+\begin{itemize}
+    \item GET: \texttt{curl -v http://example.com}
+    \item POST: \texttt{curl -v -X POST http://example.com -d "body"}
+    \item set di un header: \texttt{curl -v -H 'chiave: valore' http://example.com}
+\end{itemize}
+\vfill
+\begin{block}{Suggerimento}
+Dagli strumenti di sviluppo di Firefox e Chrome nella pagina \textit{Rete} è possibile copire il comando curl di una richiesta nel menù che appare cliccando con il tasto destro così da poterlo incollare nel terminale
+\end{block}
+\end{frame}
+
 \begin{frame}{A TOO small reminder...}
-    % https://training.olicyber.it/challenges#challenge-36
+\url{https://training.olicyber.it/challenges\#challenge-36}
+\vfill
+\begin{itemize}
+    \pause
+    \item assicurati di specificare il \textit{Content-Type} corretto!
+    \pause
+    \item non sembrano esserci vulnerabilità nel login
+    \pause
+    \item guarda attentamente il cookie di sessione che viene assegnato, noti nulla?
+    \pause
+    \item possiamo presumere che l'admin abbia una sessione aperta
+\end{itemize}
+\pause
+\vfill
+\begin{alertblock}{Prevenzione}
+I cookie di sessione dovrebbero essere impossibili da indovinare
+\end{alertblock}
 \end{frame}
 
 \begin{frame}{ZioFrank}
-    % https://training.olicyber.it/challenges#challenge-53
+\url{https://training.olicyber.it/challenges\#challenge-53}
+\vfill
+\pause
+\begin{itemize}
+    \item la vulnerabilità non è un SQL injection
+    \pause
+    \item controlla \textit{attentamente} lo schema dei dati
+    \pause
+    \item sembra che venga effettuata una query separata per capire se l'utente è admin
+    \pause
+    \item qualcosa previene il creare un nuovo utente con lo stesso username di uno esistente?
+    \pause
+\end{itemize}
+\vfill
+\begin{block}{Suggerimento}
+È sempre buona norma definire le colonne univoche con \texttt{UNIQUE}
+\end{block}
+
 \end{frame}
 
-% \subsection{XSS}
+\begin{frame}[fragile]{Cross-Site Scripting}
+\begin{minted}{javascript}
+    document.innerHTML = "Benvenuto, " + username
+\end{minted}
+\vfill
+\begin{exampleblock}{Domanda}
+Cosa c'è di sbagliato in questo codice apparentemente innocuo?
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Cross-Site Scripting}
+\begin{itemize}
+\item cosa accade se username contiene degli elementi HTML?
+\pause
+\item in particolare, se contiene dei tag \texttt{<script>}?
+\pause
+\item è possibile far eseguire del codice JavaScript a chiunque apra quella pagina!
+\pause
+\item ad esempio, possiamo leggere il cookie di sessione e farlo inviare ad un nostro server
+\pause
+\item oppure fare richieste alla pagina stessa con i cookie dell'utente
+\end{itemize}
+\pause
+\vfill
+\begin{alertblock}{Prevenzione}
+Usa sempre un framework o una libreria che si occupa di sanificare il testo che inserisci nelle pagine HTML dinamiche!
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Fine}
+Ci auguriamo che queste due lezioni ti abbiano lasciato più che altro curiosità di approfondire gli aspetti di sicurezza!
+\vfill
+Se sì... hai mai sentito parlare della \textit{CyberChallenge}?
+\end{frame}
 
 \end{document}
