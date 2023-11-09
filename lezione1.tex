@@ -2,6 +2,7 @@
 \usepackage{tikz}
 \usepackage[italian]{babel}
 \usepackage{minted}
+\usepackage{caption}
 
 \usetheme{Madrid}
 \usecolortheme{orchid}
@@ -204,6 +205,7 @@ a cui vi invitiamo ad iscrivevi.
 
 \begin{frame}{Light or dark}
     \url{https://training.olicyber.it/challenges\#challenge-49}
+    \vfill
     \begin{itemize}
         \item La challenge mostra un sito web in cui è possibile selezionare il tema, come viene applicato lo stile alla pagina html?
         \pause
@@ -218,8 +220,6 @@ a cui vi invitiamo ad iscrivevi.
     \end{block}
 \end{frame}
 
-
-% \subsection{Tool: Burp suite}
 \begin{frame}{Burp Suite}
     Introduciamo un tool che ci sarà utile per le prossime challenge. 
     \vfill
@@ -234,21 +234,19 @@ a cui vi invitiamo ad iscrivevi.
 \end{frame}
 
 \begin{frame}{Flags shop}
-    % https://training.olicyber.it/challenges#challenge-43
+    \url{https://training.olicyber.it/challenges\#challenge-43}
+    \vfill
     \begin{itemize}
         \item La challenge mostra un sito web dal quale è possibile acquistare dei prodotti
         \pause
         \item Forse guardare le richieste che effettua l'applicazione web aiuta?
-        \pause
-        \item Il parametro prezzo sembra un po' sospetto... 
     \end{itemize}
-
+    \vfill
     \begin{exampleblock}{Domanda}
         Quale tool visto prima potrebbe agevolarci nello svolgimento di questa challenge?
     \end{exampleblock}
 \end{frame}
 
-%%% SQLI 
 
 \section{SQL Injection}
 \begin{frame}[fragile]{SQL Injection}
@@ -402,7 +400,18 @@ I cookie di sessione dovrebbero essere impossibili da indovinare
 \begin{block}{Suggerimento}
 È sempre buona norma definire le colonne univoche con \texttt{UNIQUE}
 \end{block}
+\end{frame}
 
+\begin{frame}{NGROK}
+    \begin{itemize}
+        \item \textit{NGROK} è uno strumento che permette di esporre una applicazione in ascolto su \texttt{localhost} ad internet
+        \item viene generalmente usato per il testing di applicazioni web o API
+        \item per prima cosa tiriamo su un server http: \texttt{php -S 127.0.0.1:5000}
+        \item attiviamo il tunnel con ngrok: \texttt{ngrok http 5000}
+    \end{itemize}
+    \vfill
+    Il tool è gratuitamente scaricabile da 
+    \url{https://ngrok.com/download}.
 \end{frame}
 
 \begin{frame}[fragile]{Cross-Site Scripting}
@@ -434,10 +443,46 @@ Usa sempre un framework o una libreria che si occupa di sanificare il testo che 
 \end{alertblock}
 \end{frame}
 
-\begin{frame}{Fine}
+
+\begin{frame}{Curious George}
+    \url{https://training.olicyber.it/challenges\#challenge-40}
+    \vfill
+    \begin{itemize}
+        \item Dopo aver fatto il login accediamo alla pagina riservata del nostro utente. Se ricarichiamo la pagina come fa il sito a capire la nostra identità?
+        \pause
+        \item Il sito sembra navigabile specificando nel URL il parametro GET id, purtroppo questa funzione é riservata all'amministratore.
+        \pause
+        \item La funzionalità principale della piattaforma consiste nel modificare la descrizione del proprio utente. Chissá chi la leggerà mai...
+        \pause
+        \item Esiste anche una pagina per segnalare bug all'admin della piattaforma, possiamo sfruttarla a nostro vantaggio?
+        \pause
+    \end{itemize}
+    \vfill
+\end{frame}
+
+\begin{frame}{Grazie per l'attenzione}
 Ci auguriamo che queste due lezioni ti abbiano lasciato più che altro curiosità di approfondire gli aspetti di sicurezza!
 \vfill
 Se sì... hai mai sentito parlare della \textit{CyberChallenge}?
 \end{frame}
+
+\begin{frame}{Ringraziamenti}
+    \begin{figure}[ht]
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/ccit.png}
+            \caption*{CyberChallenge.IT}
+            \label{fig:a}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/iotinga.png}
+            \caption*{IOTINGA SRL}
+            \label{fig:b}
+        \end{minipage}
+    \end{figure}
+\end{frame}
+
 
 \end{document}
