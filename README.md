@@ -1,4 +1,6 @@
-# slides-ctf-wurth
+# Introduction to CTF
+
+These slides (in Italian) where used to give two introductory lesson in the course of Software Engineering at the University of Verona.
 
 ## License
 
